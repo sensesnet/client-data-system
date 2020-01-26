@@ -5,6 +5,7 @@ bin/
 .settings/
 *.iml
 *.txt
+*.log
 *.classpath
 screenshots/
 log/
