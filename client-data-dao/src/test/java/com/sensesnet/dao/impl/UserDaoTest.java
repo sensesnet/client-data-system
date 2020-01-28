@@ -39,7 +39,7 @@ public class UserDaoTest
         User user = new User();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         user.setUserLogin(String.format("test_%s@test.org", timestamp.getTime()));
-        user.setUserPassword("Password1");
+        user.setUserPassword("19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd");
         user.setUserName("Test");
         user.setUserSurname("Test");
         user.setUserAddress("Armando Bennett 2554 Pede");

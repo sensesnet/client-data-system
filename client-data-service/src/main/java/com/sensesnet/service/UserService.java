@@ -23,4 +23,6 @@ public interface UserService
     void edit(User user);
 
     User getUserByLogin(String userLogin);
+
+    void removeById(Integer userId);
 }

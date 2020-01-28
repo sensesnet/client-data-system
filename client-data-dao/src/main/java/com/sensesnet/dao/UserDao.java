@@ -25,4 +25,5 @@ public interface UserDao<T> extends BaseDao<T>
      * @return
      */
     T getUserByLogin(String userLogin);
+
 }

@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService
     @Override
     public User add(User user)
     {
-        if (user != null && user.getUserName() != null && !user.getUserName().isEmpty()
+        if (user != null && user.getUserLogin() != null && !user.getUserLogin().isEmpty()
                 && user.getUserPassword() != null && !user.getUserPassword().isEmpty())
         {
             User userdb = getUserByLogin(user.getUserLogin());
@@ -70,12 +70,8 @@ public class UserServiceImpl implements UserService
     public User getById(Class<User> clazz, Integer id)
     {
         User user = (User) userDao.getBeanById(clazz, id);
-        if (user != null)
-        {
-            log.info("user:{}", user);
-            return user;
-        }
-        return null;
+        log.info("user:{}", user);
+        return user;
     }
 
     @Override
@@ -91,5 +87,16 @@ public class UserServiceImpl implements UserService
         User user = (User) userDao.getUserByLogin(userLogin);
         log.info("user:{}", user);
         return user;
+    }
+
+    @Override
+    public void removeById(Integer userId)
+    {
+        User user = (User) userDao.getBeanById(User.class, userId);
+        if (user != null)
+        {
+            userDao.delete(user);
+            log.info("user has been deleted:{}", user);
+        }
     }
 }
