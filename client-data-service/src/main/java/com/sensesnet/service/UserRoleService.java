@@ -13,5 +13,7 @@ public interface UserRoleService
 {
     UserRole add(UserRole user);
 
-    User getRoleByName(String userName);
+    UserRole getRoleByName(String userRoleName);
+
+    UserRole getRoleById (Integer userRole);
 }

@@ -1,6 +1,7 @@
 package com.sensesnet.dao.impl;
 
 import com.sensesnet.dao.UserRoleDao;
+import com.sensesnet.model.User;
 import com.sensesnet.model.UserRole;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,6 +32,14 @@ public class UserRoleImpl extends BaseDaoImpl<UserRole> implements UserRoleDao<U
     {
         return sessionFactory.getCurrentSession().
                 createQuery("FROM UserRole u").list();
+    }
+
+    @Override
+    public UserRole getRoleByName (String roleName)
+    {
+        return (UserRole) sessionFactory.getCurrentSession().
+                createQuery("FROM UserRole u WHERE u.roleName = :roleName").
+                setParameter("roleName",roleName).uniqueResult();
     }
 
     /**

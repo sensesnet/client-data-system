@@ -16,4 +16,6 @@ public interface UserRoleDao<T> extends BaseDao<T>
      * @return
      */
     List<T> getAll();
+
+    T getRoleByName (String roleName);
 }
