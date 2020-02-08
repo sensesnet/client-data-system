@@ -136,7 +136,8 @@
 
     </style>
 <body>
-<form method="post" action="Controller" required>
+<c:url var="saveUser" value="/user/signUp"/>
+<s:form action="${saveUser}" modelAttribute="user" method="post" class="form-horizontal" role="form">
     <input type="hidden" name="action" value="sign_up"/>
     <center>
         <p>Online test system</p>
@@ -259,13 +260,14 @@
                     <c:if test="${not empty param.errorMessage }">
                         <c:out value="${param.errorMessage}"></c:out>
                     </c:if>
-                    <br><label colspan="2">Probably you have personal account</label> <a href="signIn.jsp">Sign In</a>
+                    <br><label colspan="2">Probably you have personal account</label> <a href="signIn"><span
+                        class="more nowrap">Sign In</span></a>
                 </td>
             </tr>
             </tbody>
         </table>
     </center>
-</form>
+</s:form>
 
 <script>
     $("form").submit(function (e) {

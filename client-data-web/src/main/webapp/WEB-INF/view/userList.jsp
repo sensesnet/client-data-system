@@ -126,17 +126,28 @@
             </tr>
             <c:forEach items="${userList}" var="user">
                 <tr>
-                    <td>${user.getUser().getUserName()}</td>
-                    <td>${user.getUser().getUserSurname()}</td>
-                    <td>${user.getUser().getUserLogin()}</td>
-                    <td>${user.getUser().getUserAddress()}</td>
-                    <td>${user.getUser().getUserBirthday()}</td>
-                    <td>${user.getUser().getUserPhone()}</td>
-                    <td>${user.getUserRole().getRoleName()}</td>
+                    <td>${user.getUserName()}</td>
+                    <td>${user.getUserSurname()}</td>
+                    <td>${user.getUserLogin()}</td>
+                    <td>${user.getUserAddress()}</td>
+                    <td>${user.getUserBirthday()}</td>
+                    <td>${user.getUserPhone()}</td>
+                    <td>${user.getUserRole()}</td>
                     <td>
-                        <a href="Controller?action=user_edit&userId=<c:out value ="${user.getUser().getUserId()}"/>">
-                            <span class="tableLink">Edit</span></a>
-                        <a href="Controller?action=user_remove&userId=<c:out value ="${user.getUser().getUserId()}"/>">
+                        <!-- construct an "update" link with customer id -->
+                        <c:url var="edit" value="/user/edit">
+                            <c:param name="userId" value="${user.getUserId()}" />
+                        </c:url>
+
+                        <!-- construct an "delete" link with customer id -->
+                        <c:url var="delete" value="/user/delete">
+                            <c:param name="userId" value="${user.getUserId()}" />
+                        </c:url>
+
+                        <a href="${edit}"><span class="tableLink">Edit</span></a>
+<%--                        <a href="edit&userId=<c:out value ="${user.getUserId()}"/>">--%>
+<%--                            <span class="tableLink">Edit</span></a>--%>
+                        <a href="${remove}"/>
                             <span class="tableLink">Remove</span></a>
                     </td>
                 </tr>

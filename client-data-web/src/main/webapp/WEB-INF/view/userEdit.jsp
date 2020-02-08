@@ -149,8 +149,7 @@
         <a href="Controller?action=close_session"><span class="headLink">Sign Out</span></a>
     </div>
 </div>
-<form method="post" action="Controller" name="frmEditUser">
-    <input type="hidden" name="action" value="user_edit_save"/>
+<form:form action="saveUser" modelAttribute="user" method="POST">
     <center>
         <h2>User Details</h2>
         <table border="0" width="30%" cellpadding="5">
@@ -158,7 +157,7 @@
                 <td>
                     <span>User Id (read-only)</span>
                     <input type="text" name="userId" readonly="readonly"
-                           value="${editUser.getUser().getUserId()}">
+                           value="${user.getUserId()}">
                 </td>
             </tr>
             <tr>
@@ -168,7 +167,7 @@
                            name="firstName"
                            pattern="^[a-zA-Z]+$"
                            title="Please, set your first name. Use only later."
-                           value="${editUser.getUser().getUserName()}"/>
+                           value="${user.getUserName()}"/>
                 </td>
             </tr>
             <tr>
@@ -178,7 +177,7 @@
                            name="secondName"
                            pattern="^[a-zA-Z]+$"
                            title="Please, set your second name. Use only later."
-                           value="${editUser.getUser().getUserSurname()}"/>
+                           value="${user.getUserSurname()}"/>
                 </td>
             </tr>
             <tr>
@@ -187,7 +186,7 @@
                     <input type="text"
                            name="login"
                            readonly="readonly"
-                           value="${editUser.getUser().getUserLogin()}"/>
+                           value="${user.getUserLogin()}"/>
                 </td>
             </tr>
             <tr>
@@ -195,7 +194,7 @@
                     <span>Address</span>
                     <input type="text"
                            name="address"
-                           value="${editUser.getUser().getUserAddress()}"/>
+                           value="${user.getUserAddress()}"/>
                 </td>
             </tr>
             <tr>
@@ -204,7 +203,7 @@
                     <input type="text" name="birthday"
                            pattern="^\d{4}-\d{2}-\d{2}$"
                            title="'Please, use format like 'yyyy-mm-dd'"
-                           value="${editUser.getUser().getUserBirthday()}"/>
+                           value="${user.getUserBirthday()}"/>
                 </td>
             </tr>
             <tr>
@@ -213,7 +212,7 @@
                     <input type="text" name="phone"
                            pattern="(8 0(25|29|33|34) ([0-9]{3}( [0-9]{2}){2}))"
                            title="like, '8 0xx xxx xx xx'"
-                           value="${editUser.getUser().getUserPhone()}"/>
+                           value="${user.getUserPhone()}"/>
                 </td>
             </tr>
             <tr>
@@ -222,7 +221,7 @@
                     <input type="text" name="role"
                            pattern="^(ADMIN|USER)"
                            title="'ADMIN' or 'USER'"
-                           value="${editUser.getUserRole().getRoleName()}"/>
+                           value="${user.getUserRole()}"/>
                 </td>
             </tr>
 
@@ -233,6 +232,6 @@
         <hr align="center" size="1px" width="500px">
         <p>Online test system</p>
     </center>
-</form>
+</form:form>
 </body>
 </html>

@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-
 import java.security.Principal;
 import java.util.List;
 
@@ -52,10 +54,83 @@ public class UserController
         {
             throw new ResourceNotFoundException();
         }
-        model.addAttribute("users", users);
-        return "listUsers";
+        model.addAttribute("userList", users);
+        return "userList";
     }
 
+    /**
+     * - get user list
+     *
+     * @param userDetail
+     * @return list users by page
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(ModelMap model, User userDetail)
+    {
+        User user = userService.getUserByLogin(userDetail.getUserLogin());
+        if (user != null
+                & userDetail.getUserPassword().equals(user.getUserPassword()))
+        {
+            model.addAttribute("user",user);
+
+            if(userRoleService.getRoleById(user.getUserRole()).equals("ADMIN"))
+            {
+                return "homeAdmin";
+            }
+
+            if(userRoleService.getRoleById(user.getUserRole()).equals("USER"))
+            {
+                return "homeUser";
+            }
+        }
+        model.addAttribute("errorMessage", "User is not found!");
+        return "signIn";
+    }
+
+
+    /**
+     * - go to sign in page
+     *
+     * @return
+     */
+    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
+    public String returnSignInForm()
+    {
+        return "signIn";
+    }
+
+    /**
+     * - go to sign up page
+     *
+     * @return
+     */
+    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
+    public String returnSignUpForm()
+    {
+        return "signUp";
+    }
+
+    /**
+     * - go to contacts page
+     *
+     * @return
+     */
+    @RequestMapping(value = "/contacts", method = RequestMethod.GET)
+    public String returnContactsForm()
+    {
+        return "contacts";
+    }
+
+    /**
+     * - go to about page
+     *
+     * @return
+     */
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    public String returnAboutForm()
+    {
+        return "about";
+    }
 
     /**
      * - return form for add user
@@ -131,12 +206,12 @@ public class UserController
      * @param theModel
      * @return
      */
-    @RequestMapping(value = "/showFormForUpdate", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String showFormForUpdate(@RequestParam("userId") Integer theId,
                                     Model theModel)
     {
         User user = userService.getById(User.class, theId);
         theModel.addAttribute("user", user);
-        return "updateForm";
+        return "userEdit";
     }
 }

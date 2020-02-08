@@ -1,5 +1,7 @@
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -132,8 +134,8 @@
 
 </style>
 <body>
-
-<form method="post" action="LoginFilter" required>
+<c:url var="userDetail" value="/user/login"/>
+<s:form action="${userDetail}" modelAttribute="user" method="post" class="form-horizontal" role="form">
     <center>
         <p>Online test system</p>
         <table border="0" width="30%" cellpadding="3">
@@ -145,7 +147,8 @@
             <tbody>
             <tr>
                 <td>
-                    <input id="textEmail"
+                    <input id="userLogin"
+                           path="userLogin"
                            name="login"
                            type="text"
                            value=""
@@ -158,7 +161,8 @@
                 </td>
             </tr>
             <tr>
-                <td><input id="textPassword"
+                <td><input id="userPassword"
+                           path="userPassword"
                            name="password"
                            type="password"
                            value=""
@@ -174,16 +178,16 @@
                 <td>
                     <input type="submit" id="submit" value="Submit"/>
                     <br><input type="reset" value="Reset"/>
-                    <c:if test="${not empty param.errorMessage }">
-                        <c:out value="${param.errorMessage}"></c:out>
+                    <c:if test="${not empty errorMessage}">
+                        <c:out value="${errorMessage}"></c:out>
                     </c:if>
-                    <br><label colspan="2">Probably you haven't an account.</label><a href="signUp.jsp">Sign Up</a>
+                    <br><label colspan="2">Probably you haven't an account.</label> <a href="signUp"><span class="more nowrap">Sign Up</span></a>
                 </td>
             </tr>
             </tbody>
         </table>
     </center>
-</form>
+</s:form>
 <script>
 
 

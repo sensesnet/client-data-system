@@ -18,7 +18,7 @@ public class UserRole
 {
     @Id
     @Column(name = "roleId", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer roleId;
 
     @Column(name = "roleName")

@@ -2,6 +2,8 @@ package com.sensesnet.dao.impl;
 
 import com.sensesnet.dao.UserDao;
 import com.sensesnet.model.User;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +15,9 @@ import java.util.List;
  * Copyright 2020 Eshted LLC. All rights reserved.
  * <p>
  * User dao implementation
- *
- *  * Propagation.MANDATORY — обратный по отношению к Propagation.REQUIRES_NEW:
- *  * всегда используется существующая транзакция и кидается исключение, если текущей транзакции нет.
+ * <p>
+ * * Propagation.MANDATORY — обратный по отношению к Propagation.REQUIRES_NEW:
+ * * всегда используется существующая транзакция и кидается исключение, если текущей транзакции нет.
  */
 
 @Repository
@@ -23,12 +25,12 @@ import java.util.List;
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
 {
     /**
-     *  - get list of user
+     * - get list of user
      *
      * @return
      */
     @Override
-    public List<User> getAll()
+    public List<User> getAll ()
     {
         return sessionFactory.getCurrentSession().createQuery("FROM User u").list();
     }
@@ -40,7 +42,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
      * @return
      */
     @Override
-    public User getUserByLogin(final String userLogin)
+    public User getUserByLogin (final String userLogin)
     {
         return (User) sessionFactory.getCurrentSession().
                 createQuery("FROM User u WHERE u.userLogin = :userLogin").
@@ -55,7 +57,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
      * @return
      */
     @Override
-    public User getBeanById(Class<User> clazz, Integer id)
+    public User getBeanById (Class<User> clazz, Integer id)
     {
         return (User) sessionFactory.getCurrentSession().
                 createQuery("FROM User u WHERE u.userId = :id").

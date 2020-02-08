@@ -80,10 +80,10 @@
 <div>
     <h3 class="headline">Create and deliver professional, advanced, and feature-rich tests online easily.</h3>
     <div class="links">
-        <a href="signIn.jsp"><span class="more nowrap">Sign In</span></a>
-        <a href="signUp.jsp"><span class="more nowrap">Sign Up</span></a>
-        <a href="404.jsp"><span class="more nowrap">Contacts</span></a>
-        <a href="404.jsp"><span class="more nowrap">About</span></a>
+        <a href="user/signIn"><span class="more nowrap">Sign In</span></a>
+        <a href="user/signUp"><span class="more nowrap">Sign Up</span></a>
+        <a href="error/404"><span class="more nowrap">Contacts</span></a>
+        <a href="error/404"><span class="more nowrap">About</span></a>
     </div>
 </div>
 

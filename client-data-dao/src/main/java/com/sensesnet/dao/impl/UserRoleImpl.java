@@ -23,7 +23,7 @@ import java.util.List;
 public class UserRoleImpl extends BaseDaoImpl<UserRole> implements UserRoleDao<UserRole>
 {
     /**
-     * - gel list of roles
+     * - get list of roles
      *
      * @return
      */

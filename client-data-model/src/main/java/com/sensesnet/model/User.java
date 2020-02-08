@@ -22,7 +22,7 @@ public class User
 {
     @Id
     @Column(name = "userId", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
     @Column(name = "userLogin")
