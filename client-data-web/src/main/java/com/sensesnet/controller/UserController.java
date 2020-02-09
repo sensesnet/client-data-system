@@ -127,8 +127,10 @@ public class UserController
      * @return
      */
     @RequestMapping(value = "/signIn", method = RequestMethod.GET)
-    public String returnSignInForm()
+    public String returnSignInForm(Model model)
     {
+        User user = new User();
+        model.addAttribute("user", user);
         return "signIn";
     }
 
@@ -138,8 +140,10 @@ public class UserController
      * @return
      */
     @RequestMapping(value = "/signUp", method = RequestMethod.GET)
-    public String returnSignUpForm()
+    public String returnSignUpForm(Model model)
     {
+        UserView user = new UserView();
+        model.addAttribute("user", user);
         return "signUp";
     }
 

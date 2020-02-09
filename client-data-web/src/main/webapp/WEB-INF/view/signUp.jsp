@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -150,115 +151,97 @@
             <tbody>
             <tr>
                 <td>
-                    <input type="text"
-                           name="firstName"
-                           value=""
-                           placeholder="First name"
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           pattern="^[a-zA-Z]+$"
-                           title="Please, set your first name. Use only later."
-                           required/>
+                    <s:input id="userName"
+                             type="text"
+                             path="userName"
+                             placeholder="First name"
+                             pattern="^[a-zA-Z]+$"
+                             title="Please, set your first name. Use only later."
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text"
-                           name="secondName"
-                           value=""
-                           placeholder="Second name"
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           pattern="^[a-zA-Z]+$"
-                           title="Please, set your second name. Use only later."
-                           required/>
+                    <s:input id="userSurname"
+                             type="text"
+                             path="userSurname"
+                             placeholder="Second name"
+                             pattern="^[a-zA-Z]+$"
+                             title="Please, set your second name. Use only later."
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text"
-                           name="birthday"
-                           value=""
-                           placeholder="Date of birth"
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           pattern="^\d{4}-\d{2}-\d{2}$"
-                           title="'Please, use format like 'yyyy-mm-dd'"
-                           required/>
+                    <s:input id="userBirthday"
+                             type="text"
+                             path="userBirthday"
+                             placeholder="Date of birth"
+                             pattern="^\d{4}-\d{2}-\d{2}$"
+                             title="'Please, use format like 'yyyy-mm-dd'"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text"
-                           name="address"
-                           value=""
-                           placeholder="Local address"
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           title="'Please, set address'"
-                           required/>
+                    <s:input id="userAddress"
+                             type="text"
+                             path="userAddress"
+                             placeholder="Local address"
+                             title="'Please, set address'"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text"
-                           name="phone"
-                           value=""
-                           placeholder="Phone"
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           pattern="(8 0(25|29|33|34) ([0-9]{3}( [0-9]{2}){2}))"
-                           title="like, '8 0xx xxx xx xx'"
-                           required/>
+                    <s:input id="userPhone"
+                             type="text"
+                             path="userPhone"
+                             placeholder="Phone"
+                             pattern="(8 0(25|29|33|34) ([0-9]{3}( [0-9]{2}){2}))"
+                             title="like, '8 0xx xxx xx xx'"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input
-                            id="textEmail"
-                            type="text"
-                            name="login"
-                            value=""
-                            placeholder="Login"
-                            readonly
-                            onfocus="this.removeAttribute('readonly')"
-                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
-                            title="'Please, use valid email.'"
-                            required/>
+                    <s:input id="userLogin"
+                             type="text"
+                             path="userLogin"
+                             placeholder="Login"
+                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
+                             title="'Please, use valid email.'"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="password"
-                           name="password"
-                           value=""
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           placeholder="Password"
-                           pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$"
-                           title="Your password must be at least 8 characters and include the following: 1 uppercase letter, 1 lowercase letter and 1 number."
-                           required/>
+                    <s:input name="userPassword"
+                             type="password"
+                             path="userPassword"
+                             placeholder="Password"
+                             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$"
+                             title="Your password must be at least 8 characters and include the following: 1 uppercase letter, 1 lowercase letter and 1 number."
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="password"
-                           name="confirmPassword"
-                           value=""
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           placeholder="Password again"
-                           pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$"
-                           title="Your password must be at least 8 characters and include the following: 1 uppercase letter, 1 lowercase letter and 1 number."
-                           required/>
+                    <s:input id="confirmPassword"
+                             type="password"
+                             path="confirmPassword"
+                             placeholder="Password again"
+                             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$"
+                             title="Your password must be at least 8 characters and include the following: 1 uppercase letter, 1 lowercase letter and 1 number."
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <input type="submit" id="submit" value="Submit"/>
                     <br><input type="reset" value="Reset"/>
-                    <c:if test="${not empty param.errorMessage }">
-                        <c:out value="${param.errorMessage}"></c:out>
+                    <c:if test="${not empty errorMessage }">
+                        <c:out value="${errorMessage}"></c:out>
                     </c:if>
                     <br><label colspan="2">Probably you have personal account</label> <a href="signIn"><span
                         class="more nowrap">Sign In</span></a>

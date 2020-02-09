@@ -1,12 +1,14 @@
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+    <link href=
+                  "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet" >
     <title>Simple test system</title>
 </head>
 <style type="text/css">
@@ -135,7 +137,7 @@
 </style>
 <body>
 <c:url var="userDetail" value="/user/login"/>
-<s:form action="${userDetail}" modelAttribute="user" method="post" class="form-horizontal" role="form">
+<s:form action="${userDetail}" modelAttribute="user" method="post" autocomplete="off" class="form-horizontal" role="form">
     <center>
         <p>Online test system</p>
         <table border="0" width="30%" cellpadding="3">
@@ -147,31 +149,26 @@
             <tbody>
             <tr>
                 <td>
-                    <input id="userLogin"
-                           path="userLogin"
-                           name="login"
-                           type="text"
-                           value=""
-                           placeholder="Login"
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
-                           title="Please, use valid email."
-                           required/>
+                    <s:input id="userLogin"
+                             autocomplete="false"
+                             type="text"
+                             path="userLogin"
+                             placeholder="Login"
+                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
+                             title="Please, use valid email."
+                    />
                 </td>
             </tr>
             <tr>
-                <td><input id="userPassword"
-                           path="userPassword"
-                           name="password"
-                           type="password"
-                           value=""
-                           placeholder="Password"
-                           readonly
-                           onfocus="this.removeAttribute('readonly')"
-                           pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$"
-                           title="Your password must be at least 8 characters and include the following: 1 uppercase letter, 1 lowercase letter and 1 number."
-                           required/>
+                <td>
+                    <s:input id="userPassword"
+                             path="userPassword"
+                             autocomplete="false"
+                             type="password"
+                             placeholder="Password"
+                             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$"
+                             title="Your password must be at least 8 characters and include the following: 1 uppercase letter, 1 lowercase letter and 1 number."
+                    />
                 </td>
             </tr>
             <tr>
@@ -181,7 +178,8 @@
                     <c:if test="${not empty errorMessage}">
                         <c:out value="${errorMessage}"></c:out>
                     </c:if>
-                    <br><label colspan="2">Probably you haven't an account.</label> <a href="signUp"><span class="more nowrap">Sign Up</span></a>
+                    <br><label colspan="2">Probably you haven't an account.</label> <a href="signUp"><span
+                        class="more nowrap">Sign Up</span></a>
                 </td>
             </tr>
             </tbody>
@@ -215,6 +213,8 @@
         });
         return true;
     });
+
+    $("input").attr("autocomplete", "off");
 
 </script>
 </body>
