@@ -50,17 +50,26 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
                 setParameter("userLogin", userLogin).uniqueResult();
     }
 
-    //    @Value("${app.limit.users}")
-    @Value("4")
+    @Value("${app.limit.users}")
     private int maxUsersOnPage;
 
     @Override
     public List<User> getByFirst(int startPosition)
     {
+        int usersOnPage = maxUsersOnPage;
+        List<User> userList = getAll();
+
+        if (startPosition <= userList.size())
+        {
+            if (maxUsersOnPage >= userList.size() - startPosition)
+            {
+                usersOnPage = userList.size() - startPosition * maxUsersOnPage;
+            }
+        }
         return sessionFactory.getCurrentSession()
                 .createCriteria(User.class)
                 .setFirstResult(startPosition)
-                .setMaxResults(maxUsersOnPage).list();
+                .setMaxResults(usersOnPage).list();
     }
 
     /**

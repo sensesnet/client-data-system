@@ -137,12 +137,12 @@
                     <td>
                         <!-- construct an "update" link with customer id -->
                         <c:url var="edit" value="/user/edit">
-                            <c:param name="userId" value="${user.getUserId()}" />
+                            <c:param name="userId" value="${user.getUserId()}"/>
                         </c:url>
 
                         <!-- construct an "delete" link with customer id -->
                         <c:url var="delete" value="/user/delete">
-                            <c:param name="userId" value="${user.getUserId()}" />
+                            <c:param name="userId" value="${user.getUserId()}"/>
                         </c:url>
 
                         <a href="${edit}"><span class="tableLink">Edit</span></a>
@@ -154,6 +154,11 @@
 
         <c:url var="first" value="/user/list"/>
         <a href="${first}">First</a>
+
+        <c:forEach var="i" begin="1" end="${links}">
+            <c:url var="val" value="/user/list/${i}"/>
+            <a href="${val}">${i}</a>
+        </c:forEach>
 
         <c:url var="next" value="/user/list/${nextPage}"/>
         <a href="${next}">Next</a>

@@ -101,8 +101,7 @@ public class UserServiceImpl implements UserService
         }
     }
 
-//    @Value("${app.limit.users}")
-    @Value("4")
+    @Value("${app.limit.users}")
     private int maxUsersOnPage;
 
     @Override

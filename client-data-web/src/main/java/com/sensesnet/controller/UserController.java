@@ -8,6 +8,7 @@ import com.sensesnet.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -59,21 +60,34 @@ public class UserController
         return "redirect:/user/list/1";
     }
 
+    @Value("${app.limit.users}")
+    private int maxUsersOnPage;
+
     /**
-     *
      * @param model
      * @param page
      * @return list users by page
      */
     @RequestMapping(value = "/list/{page}", method = RequestMethod.GET)
-    public String list(ModelMap model, @PathVariable Long page) {
+    public String list(ModelMap model, @PathVariable Long page)
+    {
+        List<User> userList = userService.getAll();
+        long realPage = (int) Math.ceil(userList.size() / maxUsersOnPage) + 1;
+        if (page > realPage)
+        {
+            model.addAttribute("errorMessage", "Page is not found!");
+            return "userList";
+        }
         List<User> users = userService.getByPage(page);
-        if (users.isEmpty()) {
+        if (users.isEmpty())
+        {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("userList", users);
-//        model.addAttribute("linkList",)
+        model.addAttribute("links",
+                           (long) Math.ceil(userService.getAll().size() / maxUsersOnPage) + 1);
         model.addAttribute("nextPage", ++page);
+
         return "userList";
     }
 
