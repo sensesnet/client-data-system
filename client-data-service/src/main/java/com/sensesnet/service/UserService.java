@@ -25,4 +25,6 @@ public interface UserService
     User getUserByLogin(String userLogin);
 
     void removeById(Integer userId);
+
+    List<User> getByPage(Long page);
 }

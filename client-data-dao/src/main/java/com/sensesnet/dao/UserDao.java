@@ -1,5 +1,7 @@
 package com.sensesnet.dao;
 
+import com.sensesnet.model.User;
+
 import java.util.List;
 
 /**
@@ -26,4 +28,6 @@ public interface UserDao<T> extends BaseDao<T>
      */
     T getUserByLogin(String userLogin);
 
+
+    List<T> getByFirst(int startPosition);
 }

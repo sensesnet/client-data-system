@@ -11,14 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -50,12 +49,31 @@ public class UserController
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String userList(ModelMap model)
     {
-        List<User> users = userService.getAll();
-        if (users.isEmpty())
-        {
+//        List<User> users = userService.getAll();
+//        if (users.isEmpty())
+//        {
+//            throw new ResourceNotFoundException();
+//        }
+//        model.addAttribute("userList", users);
+//        return "userList";
+        return "redirect:/user/list/1";
+    }
+
+    /**
+     *
+     * @param model
+     * @param page
+     * @return list users by page
+     */
+    @RequestMapping(value = "/list/{page}", method = RequestMethod.GET)
+    public String list(ModelMap model, @PathVariable Long page) {
+        List<User> users = userService.getByPage(page);
+        if (users.isEmpty()) {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("userList", users);
+//        model.addAttribute("linkList",)
+        model.addAttribute("nextPage", ++page);
         return "userList";
     }
 

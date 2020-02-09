@@ -4,6 +4,7 @@ import com.sensesnet.dao.UserDao;
 import com.sensesnet.model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
      * @return
      */
     @Override
-    public List<User> getAll ()
+    public List<User> getAll()
     {
         return sessionFactory.getCurrentSession().createQuery("FROM User u").list();
     }
@@ -42,11 +43,24 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
      * @return
      */
     @Override
-    public User getUserByLogin (final String userLogin)
+    public User getUserByLogin(final String userLogin)
     {
         return (User) sessionFactory.getCurrentSession().
                 createQuery("FROM User u WHERE u.userLogin = :userLogin").
                 setParameter("userLogin", userLogin).uniqueResult();
+    }
+
+    //    @Value("${app.limit.users}")
+    @Value("4")
+    private int maxUsersOnPage;
+
+    @Override
+    public List<User> getByFirst(int startPosition)
+    {
+        return sessionFactory.getCurrentSession()
+                .createCriteria(User.class)
+                .setFirstResult(startPosition)
+                .setMaxResults(maxUsersOnPage).list();
     }
 
     /**
@@ -57,7 +71,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
      * @return
      */
     @Override
-    public User getBeanById (Class<User> clazz, Integer id)
+    public User getBeanById(Class<User> clazz, Integer id)
     {
         return (User) sessionFactory.getCurrentSession().
                 createQuery("FROM User u WHERE u.userId = :id").

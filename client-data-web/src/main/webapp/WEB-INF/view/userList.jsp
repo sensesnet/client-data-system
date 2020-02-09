@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -104,11 +105,11 @@
         <a href="/logout"><span class="headLink">Sign Out</span></a>
     </div>
 </div>
-<c:if test="${not empty errorMessage }">
+<c:if test="${not empty errorMessage}">
     <c:out value="${errorMessage}"></c:out>
 </c:if>
-<c:if test="${not empty param.message }">
-    <c:out value="${param.message}"></c:out>
+<c:if test="${not empty message}">
+    <c:out value="${message}"></c:out>
 </c:if>
 <form action="Controller">
     <center>
@@ -150,6 +151,13 @@
                 </tr>
             </c:forEach>
         </table>
+
+        <c:url var="first" value="/user/list"/>
+        <a href="${first}">First</a>
+
+        <c:url var="next" value="/user/list/${nextPage}"/>
+        <a href="${next}">Next</a>
+
         <hr align="center" size="1px" width="500px">
         <p>Online test system</p>
     </center>

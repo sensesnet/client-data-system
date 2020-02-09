@@ -6,6 +6,7 @@ import com.sensesnet.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -98,5 +99,17 @@ public class UserServiceImpl implements UserService
             userDao.delete(user);
             log.info("user has been deleted:{}", user);
         }
+    }
+
+//    @Value("${app.limit.users}")
+    @Value("4")
+    private int maxUsersOnPage;
+
+    @Override
+    public List<User> getByPage(Long page)
+    {
+        if (page == null || page < 1 ) page = 1L;
+        int startPosition = (int) (page - 1) * maxUsersOnPage;
+        return userDao.getByFirst(startPosition);
     }
 }
