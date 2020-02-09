@@ -1,6 +1,7 @@
 package com.sensesnet.controller;
 
 import com.sensesnet.controller.exception.ResourceNotFoundException;
+import com.sensesnet.controller.view.UserView;
 import com.sensesnet.model.User;
 import com.sensesnet.service.UserRoleService;
 import com.sensesnet.service.UserService;
@@ -71,14 +72,14 @@ public class UserController
         if (user != null
                 & userDetail.getUserPassword().equals(user.getUserPassword()))
         {
-            model.addAttribute("user",user);
+            model.addAttribute("user", user);
 
-            if(userRoleService.getRoleById(user.getUserRole()).equals("ADMIN"))
+            if (userRoleService.getRoleById(user.getUserRole()).equals("ADMIN"))
             {
                 return "homeAdmin";
             }
 
-            if(userRoleService.getRoleById(user.getUserRole()).equals("USER"))
+            if (userRoleService.getRoleById(user.getUserRole()).equals("USER"))
             {
                 return "homeUser";
             }
@@ -135,13 +136,13 @@ public class UserController
     /**
      * - return form for add user
      *
-     * @param user
      * @return
      */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showFormForAdd(@ModelAttribute User user)
+    @RequestMapping(value = "/showFormForAdd", method = RequestMethod.GET)
+    public String showFormForAdd(Model theModel)
     {
-        return "addUser";
+        theModel.addAttribute("user", new UserView());
+        return "userAdd";
     }
 
 
@@ -158,23 +159,69 @@ public class UserController
         return "redirect:/user/list";
     }
 
+    /**
+     * - go to home
+     *
+     * @param model
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String goToHomePage(ModelMap model, HttpSession session)
+    {
+        List<User> users = userService.getAll();
+        User user = (User) session.getAttribute("user");
+        if (users.isEmpty())
+        {
+            throw new ResourceNotFoundException();
+        }
+        model.addAttribute("userList", users);
+        if (userRoleService.getRoleById(user.getUserRole()).equals("ADMIN"))
+        {
+            return "homeAdmin";
+        }
+
+        if (userRoleService.getRoleById(user.getUserRole()).equals("USER"))
+        {
+            return "homeUser";
+        }
+
+        return "logout";
+    }
+
 
     /**
      * - create new user
      *
-     * @param user
+     * @param userView
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@ModelAttribute("user") User user, HttpSession session)
+    public String add(@ModelAttribute("user") UserView userView, HttpSession session)
     {
-        User userdb = userService.add(user);
+        User userdb = userService.getUserByLogin(userView.getUserLogin());
         if (userdb != null)
         {
-            session.setAttribute("user", user);
+            session.setAttribute("errorMessage", "User [" + userView.getUserLogin() + "] is found.");
             return USER_LIST;
         }
-        return INDEX;
+        if (!userView.getUserPassword().equals(userView.getConfirmPassword()))
+        {
+            session.setAttribute("errorMessage", "User password is not confirmed.");
+            return USER_LIST;
+        }
+        userService.add(
+                User.builder()
+                        .userLogin(userView.getUserLogin())
+                        .userAddress(userView.getUserAddress())
+                        .userBirthday(userView.getUserAddress())
+                        .userRole(userRoleService.getRoleByName(userView.getUserRole()).getRoleId())
+                        .userName(userView.getUserName())
+                        .userSurname(userView.getUserSurname())
+                        .userPhone(userView.getUserPhone())
+                        .userPassword(userView.getUserPassword())
+                        .build());
+        return USER_LIST;
     }
 
 
@@ -213,5 +260,18 @@ public class UserController
         User user = userService.getById(User.class, theId);
         theModel.addAttribute("user", user);
         return "userEdit";
+    }
+
+    /**
+     * - go to update user page
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String showFormForUpdate(@ModelAttribute("user") User user)
+    {
+        userService.edit(user);
+        return USER_LIST;
     }
 }

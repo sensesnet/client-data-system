@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -144,84 +145,97 @@
 <h3>Online Testing Platform</h3>
 <div>
     <div class="links">
-        <a href="Controller?action=user_view"><span class="headLink">List of User</span></a>
-        <a href="Controller?action=home"><span class="headLink">Admin main page</span></a>
-        <a href="Controller?action=close_session"><span class="headLink">Sign Out</span></a>
+        <a href="list"><span class="headLink">List of User</span></a>
+        <a href=home"><span class="headLink">Admin main page</span></a>
+        <a href="logout"><span class="headLink">Sign Out</span></a>
     </div>
 </div>
-<form:form action="saveUser" modelAttribute="user" method="POST">
+<s:form action="edit" modelAttribute="user" role="form" method="POST">
     <center>
         <h2>User Details</h2>
         <table border="0" width="30%" cellpadding="5">
             <tr>
                 <td>
                     <span>User Id (read-only)</span>
-                    <input type="text" name="userId" readonly="readonly"
-                           value="${user.getUserId()}">
+                    <s:input id="userId"
+                             type="text"
+                             path="userId"
+                             readonly="readonly"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <span>Name</span>
-                    <input type="text"
-                           name="firstName"
-                           pattern="^[a-zA-Z]+$"
-                           title="Please, set your first name. Use only later."
-                           value="${user.getUserName()}"/>
+                    <s:input id="userName"
+                             type="text"
+                             path="userName"
+                             pattern="^[a-zA-Z]+$"
+                             title="Please, set your first name. Use only later."
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <span>Surname</span>
-                    <input type="text"
-                           name="secondName"
-                           pattern="^[a-zA-Z]+$"
-                           title="Please, set your second name. Use only later."
-                           value="${user.getUserSurname()}"/>
+                    <s:input id="userSurname"
+                             type="text"
+                             path="userSurname"
+                             pattern="^[a-zA-Z]+$"
+                             title="Please, set your second name. Use only later."
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <span>Login (read-only)</span>
-                    <input type="text"
-                           name="login"
-                           readonly="readonly"
-                           value="${user.getUserLogin()}"/>
+                    <s:input id="userLogin"
+                             type="text"
+                             path="userLogin"
+                             readonly="readonly"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <span>Address</span>
-                    <input type="text"
-                           name="address"
-                           value="${user.getUserAddress()}"/>
+                    <s:input id="userAddress"
+                             type="text"
+                             path="userAddress"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <span>Birthday</span>
-                    <input type="text" name="birthday"
-                           pattern="^\d{4}-\d{2}-\d{2}$"
-                           title="'Please, use format like 'yyyy-mm-dd'"
-                           value="${user.getUserBirthday()}"/>
+                    <s:input id="userBirthday"
+                             type="text"
+                             path="userBirthday"
+                             pattern="^\d{4}-\d{2}-\d{2}$"
+                             title="'Please, use format like 'yyyy-mm-dd'"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <span>Phone</span>
-                    <input type="text" name="phone"
-                           pattern="(8 0(25|29|33|34) ([0-9]{3}( [0-9]{2}){2}))"
-                           title="like, '8 0xx xxx xx xx'"
-                           value="${user.getUserPhone()}"/>
+                    <s:input id="userPhone"
+                             type="text"
+                             path="userPhone"
+                             pattern="(8 0(25|29|33|34) ([0-9]{3}( [0-9]{2}){2}))"
+                             title="like, '8 0xx xxx xx xx'"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
                     <span>Role</span>
-                    <input type="text" name="role"
-                           pattern="^(ADMIN|USER)"
-                           title="'ADMIN' or 'USER'"
-                           value="${user.getUserRole()}"/>
+                    <s:input id="userRole"
+                             type="text"
+                             path="userRole"
+                    />
+                        <%--                             pattern="^(ADMIN|USER)"--%>
+                        <%--                             title="'ADMIN' or 'USER'"--%>
                 </td>
             </tr>
 
@@ -232,6 +246,6 @@
         <hr align="center" size="1px" width="500px">
         <p>Online test system</p>
     </center>
-</form:form>
+</s:form>
 </body>
 </html>

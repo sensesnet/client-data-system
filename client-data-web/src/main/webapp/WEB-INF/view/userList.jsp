@@ -99,13 +99,13 @@
 <h1>Online Testing Platform</h1>
 <div>
     <div class="links">
-        <a href="Controller?action=user_add"><span class="headLink">Add new User</span></a>
-        <a href="Controller?action=home"><span class="headLink">Admin main page</span></a>
-        <a href="Controller?action=close_session"><span class="headLink">Sign Out</span></a>
+        <a href="showFormForAdd"><span class="headLink">Add new User</span></a>
+        <a href="/home"><span class="headLink">Admin main page</span></a>
+        <a href="/logout"><span class="headLink">Sign Out</span></a>
     </div>
 </div>
-<c:if test="${not empty param.errorMessage }">
-    <c:out value="${param.errorMessage}"></c:out>
+<c:if test="${not empty errorMessage }">
+    <c:out value="${errorMessage}"></c:out>
 </c:if>
 <c:if test="${not empty param.message }">
     <c:out value="${param.message}"></c:out>
@@ -145,10 +145,7 @@
                         </c:url>
 
                         <a href="${edit}"><span class="tableLink">Edit</span></a>
-<%--                        <a href="edit&userId=<c:out value ="${user.getUserId()}"/>">--%>
-<%--                            <span class="tableLink">Edit</span></a>--%>
-                        <a href="${remove}"/>
-                            <span class="tableLink">Remove</span></a>
+                        <a href="${delete}"/><span class="tableLink">Remove</span></a>
                     </td>
                 </tr>
             </c:forEach>
