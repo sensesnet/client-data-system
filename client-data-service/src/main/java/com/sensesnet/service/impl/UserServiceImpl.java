@@ -111,4 +111,11 @@ public class UserServiceImpl implements UserService
         int startPosition = (int) (page - 1) * maxUsersOnPage;
         return userDao.getByFirst(startPosition);
     }
+
+    @Override
+    public User getUserByLoginAndPassword(String userLogin, String encryptPassword)
+    {
+        User user = (User) userDao.getUserByLoginAndPassword(userLogin, encryptPassword);
+        return user;
+    }
 }

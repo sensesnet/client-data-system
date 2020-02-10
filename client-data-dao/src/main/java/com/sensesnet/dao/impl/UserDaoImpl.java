@@ -2,8 +2,6 @@ package com.sensesnet.dao.impl;
 
 import com.sensesnet.dao.UserDao;
 import com.sensesnet.model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -70,6 +68,17 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>
                 .createCriteria(User.class)
                 .setFirstResult(startPosition)
                 .setMaxResults(usersOnPage).list();
+    }
+
+    @Override
+    public User getUserByLoginAndPassword(String userLogin, String encryptPassword)
+    {
+
+        return (User) sessionFactory.getCurrentSession().
+                createQuery("FROM User u WHERE u.userLogin = :userLogin AND u.userPassword = :userPassword")
+                .setParameter("userLogin", userLogin)
+                .setParameter("userPassword", encryptPassword)
+                .uniqueResult();
     }
 
     /**

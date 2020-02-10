@@ -77,17 +77,17 @@
 <div>
     <h3 class="headline">'Admin' role</h3>
     <div class="links">
-        <a href="Controller?action=test_view"><span class="more nowrap">List of Tests</span></a>
-        <a href="Controller?action=user_view"><span class="more nowrap">List of Users</span></a>
-        <a href="Controller?action=result_view"><span class="more nowrap">Search result</span></a>
-        <a href="Controller?action=close_session"><span class="more nowrap">Sign Out</span></a>
+        <a href="list"><span class="more nowrap">List of Tests</span></a>
+        <a href="list"><span class="more nowrap">List of Users</span></a>
+        <a href="list"><span class="more nowrap">Search result</span></a>
+        <a href="logout"><span class="more nowrap">Sign Out</span></a>
     </div>
 </div>
 <c:if test="${not empty param.errorMessage }">
-    <c:out value="${param.errorMessage}"></c:out>
+    <c:out value="${errorMessage}"></c:out>
 </c:if>
 <c:if test="${not empty param.message }">
-    <c:out value="${param.message}"></c:out>
+    <c:out value="${message}"></c:out>
 </c:if>
 <p class="pd-billboard-subcopy pd-util-compact-large-12 pd-util-expand-small-1">
     'Admin' role gives you main capabilities for:

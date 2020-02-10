@@ -30,4 +30,13 @@ public interface UserDao<T> extends BaseDao<T>
 
 
     List<T> getByFirst(int startPosition);
+
+    /**
+     * Auth process
+     *
+     * @param userLogin
+     * @param encryptPassword
+     * @return
+     */
+    T getUserByLoginAndPassword(String userLogin, String encryptPassword);
 }

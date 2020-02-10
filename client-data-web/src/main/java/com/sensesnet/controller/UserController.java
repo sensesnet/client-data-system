@@ -1,6 +1,7 @@
 package com.sensesnet.controller;
 
 import com.sensesnet.controller.exception.ResourceNotFoundException;
+import com.sensesnet.controller.util.PasswordUtil;
 import com.sensesnet.controller.view.UserView;
 import com.sensesnet.model.User;
 import com.sensesnet.service.UserRoleService;
@@ -60,8 +61,8 @@ public class UserController
         return "redirect:/user/list/1";
     }
 
-    @Value("${app.limit.users}")
-    private int maxUsersOnPage;
+//    @Value("${app.limit.users}")
+//    private int maxUsersOnPage;
 
     /**
      * @param model
@@ -72,7 +73,7 @@ public class UserController
     public String list(ModelMap model, @PathVariable Long page)
     {
         List<User> userList = userService.getAll();
-        long realPage = (int) Math.ceil(userList.size() / maxUsersOnPage) + 1;
+        long realPage = (int) Math.ceil(userList.size() / 5) + 1;
         if (page > realPage)
         {
             model.addAttribute("errorMessage", "Page is not found!");
@@ -85,7 +86,7 @@ public class UserController
         }
         model.addAttribute("userList", users);
         model.addAttribute("links",
-                           (long) Math.ceil(userService.getAll().size() / maxUsersOnPage) + 1);
+                           (long) Math.ceil(userService.getAll().size() / 5) + 1);
         model.addAttribute("nextPage", ++page);
 
         return "userList";
@@ -100,18 +101,19 @@ public class UserController
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(ModelMap model, User userDetail)
     {
-        User user = userService.getUserByLogin(userDetail.getUserLogin());
-        if (user != null
-                & userDetail.getUserPassword().equals(user.getUserPassword()))
+        User user = userService.getUserByLoginAndPassword(
+                userDetail.getUserLogin(),
+                PasswordUtil.getEncryptPassword(userDetail.getUserPassword()));
+        if (user != null)
         {
             model.addAttribute("user", user);
 
-            if (userRoleService.getRoleById(user.getUserRole()).equals("ADMIN"))
+            if (userRoleService.getRoleById(user.getUserRole()).getRoleName().equals("ADMIN"))
             {
                 return "homeAdmin";
             }
 
-            if (userRoleService.getRoleById(user.getUserRole()).equals("USER"))
+            if (userRoleService.getRoleById(user.getUserRole()).getRoleName().equals("USER"))
             {
                 return "homeUser";
             }
@@ -174,7 +176,7 @@ public class UserController
      *
      * @return
      */
-    @RequestMapping(value = "/showFormForAdd", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/showFormForAdd", method = RequestMethod.GET)
     public String showFormForAdd(Model theModel)
     {
         theModel.addAttribute("user", new UserView());
@@ -202,7 +204,7 @@ public class UserController
      * @param session
      * @return
      */
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/home", method = RequestMethod.GET)
     public String goToHomePage(ModelMap model, HttpSession session)
     {
         List<User> users = userService.getAll();
@@ -232,7 +234,7 @@ public class UserController
      * @param userView
      * @return
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/list/add", method = RequestMethod.POST)
     public String add(@ModelAttribute("user") UserView userView, HttpSession session)
     {
         User userdb = userService.getUserByLogin(userView.getUserLogin());

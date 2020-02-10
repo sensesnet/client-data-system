@@ -101,8 +101,8 @@
 <div>
     <div class="links">
         <a href="showFormForAdd"><span class="headLink">Add new User</span></a>
-        <a href="/home"><span class="headLink">Admin main page</span></a>
-        <a href="/logout"><span class="headLink">Sign Out</span></a>
+        <a href="home"><span class="headLink">Admin main page</span></a>
+        <a href="logout"><span class="headLink">Sign Out</span></a>
     </div>
 </div>
 <c:if test="${not empty errorMessage}">

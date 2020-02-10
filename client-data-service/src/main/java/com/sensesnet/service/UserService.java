@@ -27,4 +27,6 @@ public interface UserService
     void removeById(Integer userId);
 
     List<User> getByPage(Long page);
+
+    User getUserByLoginAndPassword(String userLogin, String encryptPassword);
 }

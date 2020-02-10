@@ -131,10 +131,10 @@
 <div>
     <h3 class="headline">'User' role</h3>
     <div class="links">
-        <a href="Controller?action=test_view"><span class="more nowrap">Find test</span></a>
-        <a href="Controller?action=assigned_tests_view"><span class="more nowrap">Assigned tests</span></a>
-        <a href="Controller?action=change_password"><span class="more nowrap">Change password</span></a>
-        <a href="Controller?action=close_session"><span class="more nowrap">Sign Out</span></a>
+        <a href="list"><span class="more nowrap">Find test</span></a>
+        <a href="list"><span class="more nowrap">Assigned tests</span></a>
+        <a href="list"><span class="more nowrap">Change password</span></a>
+        <a href="logout"><span class="more nowrap">Sign Out</span></a>
     </div>
 </div>
 
