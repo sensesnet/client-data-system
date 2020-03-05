@@ -54,7 +54,7 @@
         <spring.security>4.0.3.RELEASE</spring.security>
         <spring.version>4.2.6.RELEASE</spring.version>
 
-        <jackson.version>2.9.10.1</jackson.version>
+        <jackson.version>2.9.10.3</jackson.version>
     </properties>
 
     <dependencyManagement>
