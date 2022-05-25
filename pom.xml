@@ -51,7 +51,7 @@
         <c3p0.version>0.9.1.2</c3p0.version>
         <mockito.version>1.9.5</mockito.version>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-        <spring.security>4.0.3.RELEASE</spring.security>
+        <spring.security>5.5.7</spring.security>
         <spring.version>4.2.6.RELEASE</spring.version>
 
         <jackson.version>2.9.10.1</jackson.version>
